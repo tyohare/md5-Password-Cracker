@@ -43,7 +43,6 @@ class PasswordCracker{
                 print($word." found at index: ".$i."\n");
                 return true;
             }
-
         }
         print("No matches for word ".$word." found in dictionary.");
     }
@@ -72,7 +71,7 @@ class PasswordCracker{
         fclose($singleline);
     }
 
-        function searchRainbowTable($md5in){
+    function searchRainbowTable($md5in){
         $md5text = fopen('rainbow.txt','r');
         $plaintext = fopen('dictionary.txt','r');
         while (!feof($md5text)){
@@ -83,8 +82,10 @@ class PasswordCracker{
                     $plainHashed = fgets($plaintext);
                     $plainHashed = str_replace('\n','', $plainHashed);
                     if(strcmp(md5($plainHashed), $md5in) == 0){
-                        print("Md5 hash match found for: ".$md5in);
+                        print("Md5 hash match found for: ".$md5in."\n");
                         print("Word: ".$plainHashed);
+                        fclose($md5text);
+                        fclose($plaintext);
                         return true;
                     }
                 }
